@@ -15,12 +15,16 @@ export default function App() {
     setAddMode(false);
   }
 
+  const cancelAdd = () => {
+    setAddMode(false);
+  }
+
   return (
     <View style={styles.screen}>
 
       <Button title="Add New Goal" onPress={()=>setAddMode(true)} />
 
-      <GoalInput setgoalsList={setgoalsList} visible={addMode} addNewGoal={addNewGoal} />
+      <GoalInput setgoalsList={setgoalsList} visible={addMode} addNewGoal={addNewGoal} cancelAdd={cancelAdd} />
 
       <FlatList
         keyExtractor={(item, index) => item.id}
