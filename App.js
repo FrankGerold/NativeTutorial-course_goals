@@ -10,14 +10,18 @@ export default function App() {
   const [addMode, setAddMode] = useState(false);
 
   const addNewGoal = gol => {
+    if (gol.length === 0) {
+      return
+    }
+
     setgoalsList(currentGoals => [...currentGoals, { id: Math.random().toString(), value: gol }]);
 
     setAddMode(false);
-  }
+  };
 
   const cancelAdd = () => {
     setAddMode(false);
-  }
+  };
 
   return (
     <View style={styles.screen}>
