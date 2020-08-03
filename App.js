@@ -6,20 +6,27 @@ import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState('');
   const [goalsList, setgoalsList] = useState([]);
+  const [addMode, setAddMode] = useState(false);
+
+  const addNewGoal = gol => {
+    setgoalsList(currentGoals => [...currentGoals, { id: Math.random().toString(), value: gol }]);
+
+    setAddMode(false);
+  }
 
   return (
     <View style={styles.screen}>
 
-      <GoalInput enteredGoal={enteredGoal} setEnteredGoal={setEnteredGoal} setgoalsList={setgoalsList} />
+      <Button title="Add New Goal" onPress={()=>setAddMode(true)} />
+
+      <GoalInput setgoalsList={setgoalsList} visible={addMode} addNewGoal={addNewGoal} />
 
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={goalsList}
         renderItem={itemData => <GoalItem title={itemData.item.value} deleteItem={()=>setgoalsList(goals => goals.filter(gol=>gol.id !== itemData.item.id))} />}
       />
-
     </View>
   );
 }
